@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Primary SEO -->
+<title>The Great Divergence: Altman vs Amodei — A Vector Analysis of the 2021 AI Split</title>
+<meta name="description" content="A phase-space analysis of Sam Altman (OpenAI) and Dario Amodei (Anthropic) — mapping the 2021 inflection point where capped-profit governance triggered the birth of Constitutional AI. Vector decomposition, centrifugal physics, and graphing parameters." />
+<meta name="keywords" content="Sam Altman, Dario Amodei, OpenAI, Anthropic, Constitutional AI, AI safety, scaling laws, AGI trajectory, AI governance, capped-profit, Responsible Scaling Policies" />
+<meta name="author" content="Trajectory Analysis" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="./" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The Great Divergence: Altman vs Amodei" />
+<meta property="og:description" content="Vector analysis of the 2021 AI split — how capped-profit became a centrifugal force that birthed Anthropic and Constitutional AI." />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Great Divergence: Altman vs Amodei" />
+<meta name="twitter:description" content="Phase-space analysis of the 2021 OpenAI/Anthropic split." />
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Great Divergence: Altman vs Amodei — A Vector Analysis",
+  "description": "Phase-space analysis of the parallel and divergent trajectories of Sam Altman and Dario Amodei, focusing on the 2021 inflection point.",
+  "author": { "@type": "Person", "name": "Trajectory Analysis" },
+  "datePublished": "2026-04-19",
+  "about": [
+    { "@type": "Person", "name": "Sam Altman" },
+    { "@type": "Person", "name": "Dario Amodei" },
+    { "@type": "Organization", "name": "OpenAI" },
+    { "@type": "Organization", "name": "Anthropic" }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:        #0a0e12;
+    --paper:      #ede4d0;
+    --paper-dim:  #d9ceb4;
+    --rule:       #2a2f36;
+    --muted:      #5a5246;
+    --altman:     #ff5a1f;
+    --altman-dim: #c9431a;
+    --amodei:     #2b6cb0;
+    --amodei-dim: #1e4d80;
+    --signal:     #d4a84b;
+    --grid:       rgba(10, 14, 18, 0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      radial-gradient(ellipse at top, rgba(255,90,31,0.04), transparent 60%),
+      radial-gradient(ellipse at bottom, rgba(43,108,176,0.04), transparent 60%);
+    background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+  }
+
+  /* subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' seed='3'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ============ TOP RULE ============ */
+  .top-rule {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 32px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .top-rule .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--altman);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+  .top-rule .dot.b { background: var(--amodei); animation-delay: 1s; }
+  .top-rule a.byline {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .top-rule a.byline:hover {
+    color: var(--altman);
+    border-color: var(--altman);
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    z-index: 2;
+    padding: 80px 32px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-label::before {
+    content: "";
+    width: 32px; height: 1px;
+    background: var(--ink);
+  }
+
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+  }
+  h1.title .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+  h1.title .orange { color: var(--altman); }
+  h1.title .blue { color: var(--amodei); }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+  .meta-item .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .meta-item .v {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section.chapter {
+    position: relative;
+    z-index: 2;
+    padding: 80px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+
+  .chapter-head {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 48px;
+    margin-bottom: 56px;
+  }
+  .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 12px;
+  }
+  .chapter-num .big {
+    display: block;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+  }
+  h2.chapter-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  h2.chapter-title .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+  .chapter-lede {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 20px;
+    max-width: 680px;
+  }
+
+  /* ============ VECTOR CARDS ============ */
+  .vector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .vector-card {
+    background: rgba(255,255,255,0.35);
+    border: 1px solid var(--rule);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .vector-card.alt {
+    border-top: 4px solid var(--altman);
+  }
+  .vector-card.amo {
+    border-top: 4px solid var(--amodei);
+  }
+  .vector-card .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .vector-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .vector-card .subtitle {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .equation {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    margin: 16px 0 24px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .equation.alt .accent { color: var(--altman); }
+  .equation.amo .accent { color: #7eb8e8; }
+  .equation .small {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-left: auto;
+  }
+
+  .vec-breakdown {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .vec-breakdown .sym {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  .vec-breakdown .alt-sym { color: var(--altman); }
+  .vec-breakdown .amo-sym { color: var(--amodei); }
+  .vec-breakdown .def { color: var(--ink); font-family: 'Fraunces', serif; font-size: 15px; }
+  .vec-breakdown .def b { font-weight: 500; }
+
+  .vec-svg {
+    margin-top: 24px;
+    border-top: 1px dashed var(--rule);
+    padding-top: 20px;
+  }
+
+  /* ============ INFLECTION (PHYSICS) ============ */
+  .inflection-wrap {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .physics-svg {
+    background: rgba(10,14,18,0.92);
+    border: 1px solid var(--rule);
+    padding: 24px;
+    position: relative;
+  }
+  .physics-svg .cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(237, 228, 208, 0.5);
+    margin-bottom: 12px;
+  }
+
+  .force-log {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .force-log p { margin-bottom: 18px; }
+  .force-log .cal {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 19px;
+  }
+
+  .force-list {
+    margin-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .force-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .force-row .f-num {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--altman);
+    line-height: 1;
+  }
+  .force-row .f-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .force-row .f-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .force-row .f-desc {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ============ GRAPH PARAMETERS ============ */
+  .streams {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .stream {
+    border: 1px solid var(--rule);
+    background: rgba(255,255,255,0.3);
+    padding: 28px;
+    position: relative;
+  }
+  .stream .num {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--paper-dim);
+  }
+  .stream .axis-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .stream h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    max-width: 85%;
+  }
+  .stream p {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .stream .unit {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+  }
+  .stream .unit b { color: var(--ink); font-weight: 500; }
+
+  .phase-plot {
+    margin-top: 48px;
+    background: rgba(10,14,18,0.95);
+    border: 1px solid var(--rule);
+    padding: 32px;
+  }
+  .phase-plot .cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(237, 228, 208, 0.5);
+    margin-bottom: 4px;
+  }
+  .phase-plot h4 {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--paper);
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+
+  /* ============ META COMMENTARY ============ */
+  .meta {
+    background: var(--ink);
+    color: var(--paper);
+    margin: 0 -9999px;
+    padding: 96px 9999px;
+    position: relative;
+    z-index: 2;
+  }
+  .meta-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .meta .chapter-head {
+    margin-bottom: 56px;
+  }
+  .meta .chapter-num { color: rgba(237, 228, 208, 0.5); }
+  .meta .chapter-num .big { color: var(--paper); }
+  .meta h2.chapter-title { color: var(--paper); }
+  .meta .chapter-lede { color: rgba(237, 228, 208, 0.7); }
+
+  .meta-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .meta-prose {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(237, 228, 208, 0.9);
+  }
+  .meta-prose p { margin-bottom: 20px; }
+  .meta-prose .cal {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--signal);
+  }
+  .meta-prose .drop::first-letter {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 64px;
+    float: left;
+    line-height: 0.85;
+    margin: 8px 10px -4px 0;
+    color: var(--signal);
+  }
+  .meta-diagram {
+    border: 1px solid rgba(237, 228, 208, 0.2);
+    padding: 32px;
+    background: rgba(237, 228, 208, 0.03);
+  }
+  .meta-diagram .cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(237, 228, 208, 0.5);
+    margin-bottom: 16px;
+  }
+
+  .trace-list {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(237, 228, 208, 0.2);
+  }
+  .trace-list .trace {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px dashed rgba(237, 228, 208, 0.15);
+    align-items: start;
+  }
+  .trace-list .trace:last-child { border-bottom: none; }
+  .trace .marker {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--signal);
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  .trace .content {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .trace .content b {
+    font-weight: 500;
+    color: var(--paper);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .trace .content span {
+    color: rgba(237, 228, 208, 0.65);
+  }
+
+  /* ============ FOOTER ============ */
+  footer.colophon {
+    position: relative;
+    z-index: 2;
+    padding: 48px 32px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  footer .wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+  }
+  footer .wordmark span { color: var(--altman); }
+  footer .wordmark em { color: var(--amodei); font-style: normal; font-family: 'Fraunces'; font-weight: 500; }
+  footer .colo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  footer .colo b {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .chapter-head { grid-template-columns: 1fr; gap: 16px; }
+    .vector-grid { grid-template-columns: 1fr; }
+    .inflection-wrap { grid-template-columns: 1fr; }
+    .streams { grid-template-columns: 1fr; }
+    .meta-body { grid-template-columns: 1fr; }
+    .hero-meta { grid-template-columns: repeat(2, 1fr); }
+    footer.colophon { grid-template-columns: 1fr; }
+    .top-rule { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes draw {
+    from { stroke-dashoffset: var(--len, 1000); }
+    to { stroke-dashoffset: 0; }
+  }
+  .path-draw {
+    stroke-dasharray: var(--len, 1000);
+    stroke-dashoffset: var(--len, 1000);
+    animation: draw 2.4s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- TOP RULE                                                          -->
+<!-- ================================================================ -->
+<div class="top-rule">
+  <div><span class="dot"></span>OPENAI · SAN FRANCISCO &nbsp;&nbsp;/&nbsp;&nbsp;<span class="dot b"></span>ANTHROPIC · SAN FRANCISCO</div>
+  <div>TRAJECTORY FILE № 2021 — REV. 04.26 &nbsp;·&nbsp; BY <a href="https://swetlanaai.com" class="byline" target="_blank" rel="noopener">SWETLANA&nbsp;AI</a></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- HERO                                                              -->
+<!-- ================================================================ -->
+<header class="hero">
+  <div class="hero-label">A Vector Study in Two Founders &nbsp;·&nbsp; 1985 — Present</div>
+
+  <h1 class="title">
+    The <span class="italic">Great</span><br />
+    <span class="italic">Divergence</span>:<br />
+    <span class="orange">Altman</span> <span class="italic">vs.</span> <span class="blue">Amodei</span>.
+  </h1>
+
+  <p style="font-family:'Fraunces',serif; font-size:20px; line-height:1.55; max-width: 760px; color: var(--muted); margin-top: 24px;">
+    Two trajectories that ran in parallel for half a decade, converged at OpenAI in 2016, and split along a measurable fault line in 2021. This is an attempt to draw the phase diagram.
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="k">Common Origin</div>
+      <div class="v">Stanford · OpenAI (2016–21)</div>
+    </div>
+    <div class="meta-item">
+      <div class="k">Split Year</div>
+      <div class="v">2021 — Centrifugal Event</div>
+    </div>
+    <div class="meta-item">
+      <div class="k">Observable</div>
+      <div class="v">Two firms, two philosophies</div>
+    </div>
+    <div class="meta-item">
+      <div class="k">Frame</div>
+      <div class="v">Vector mechanics · phase space</div>
+    </div>
+  </div>
+</header>
+
+<!-- ================================================================ -->
+<!-- CH. 01 — VECTOR ANALYSIS                                          -->
+<!-- ================================================================ -->
+<section class="chapter">
+  <div class="chapter-head">
+    <div class="chapter-num">Chapter One<span class="big">01</span></div>
+    <div>
+      <h2 class="chapter-title">The <span class="italic">Vector</span> Analysis.</h2>
+      <p class="chapter-lede">
+        A person's career, like a particle's path, can be decomposed into orthogonal components. Altman and Amodei share a magnitude — both are operating near the frontier of compute — but their <em>direction</em> vectors are distinct. Below: the two basis sets.
+      </p>
+    </div>
+  </div>
+
+  <div class="vector-grid">
+
+    <!-- ALTMAN CARD -->
+    <div class="vector-card alt">
+      <div class="tag">Subject A · b. 1985 · Stanford dropout</div>
+      <h3>Sam Altman</h3>
+      <div class="subtitle">The Scaler · The Strategist</div>
+
+      <div class="equation alt mono">
+        <span>V</span><span class="accent">ₐ</span><span> = </span><span class="accent">Velocity</span><span> × </span><span class="accent">Distribution</span><span> × </span><span class="accent">Capital</span>
+        <span class="small">basis set A</span>
+      </div>
+
+      <div class="vec-breakdown">
+        <div class="sym alt-sym">v̂</div>
+        <div class="def"><b>Velocity.</b> Ship now, learn from reality. ChatGPT released eleven months after GPT-3.5 finished training.</div>
+        <div class="sym alt-sym">d̂</div>
+        <div class="def"><b>Distribution.</b> Y Combinator reflex — own the funnel. 800M weekly users, API-first, consumer-default.</div>
+        <div class="sym alt-sym">ĉ</div>
+        <div class="def"><b>Capital.</b> Microsoft, Oracle, SoftBank, sovereign funds. The thesis: compute is destiny, and destiny is bought.</div>
+      </div>
+
+      <div class="vec-svg">
+        <svg viewBox="0 0 400 140" style="width:100%;height:auto;">
+          <defs>
+            <marker id="arrow-alt" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff5a1f"/>
+            </marker>
+          </defs>
+          <line x1="30" y1="110" x2="370" y2="110" stroke="#5a5246" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="30" y1="110" x2="30" y2="20" stroke="#5a5246" stroke-width="1" stroke-dasharray="2,3"/>
+          <text x="370" y="125" fill="#5a5246" font-family="JetBrains Mono" font-size="9" text-anchor="end">TIME →</text>
+          <text x="34" y="18" fill="#5a5246" font-family="JetBrains Mono" font-size="9">MAGNITUDE ↑</text>
+
+          <path d="M 30 108 C 100 106, 150 95, 200 70 S 320 25, 370 15"
+                fill="none" stroke="#ff5a1f" stroke-width="2.5"
+                marker-end="url(#arrow-alt)"
+                class="path-draw" style="--len: 420;"/>
+
+          <!-- markers -->
+          <g font-family="JetBrains Mono" font-size="8" fill="#5a5246">
+            <circle cx="80" cy="105" r="2.5" fill="#ff5a1f"/>
+            <text x="84" y="101">2015 · founds OpenAI</text>
+
+            <circle cx="180" cy="80" r="2.5" fill="#ff5a1f"/>
+            <text x="184" y="76">2019 · CEO · capped-profit</text>
+
+            <circle cx="250" cy="55" r="2.5" fill="#ff5a1f"/>
+            <text x="254" y="51">2022 · ChatGPT</text>
+
+            <circle cx="340" cy="22" r="3" fill="#ff5a1f"/>
+            <text x="300" y="40">2025–26 · agents · infra</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- AMODEI CARD -->
+    <div class="vector-card amo">
+      <div class="tag">Subject B · b. 1983 · Princeton PhD</div>
+      <h3>Dario Amodei</h3>
+      <div class="subtitle">The Scientist · The Safetyist</div>
+
+      <div class="equation amo mono">
+        <span>V</span><span class="accent">ᵦ</span><span> = </span><span class="accent">Rigor</span><span> × </span><span class="accent">Alignment</span><span> × </span><span class="accent">Interpretability</span>
+        <span class="small">basis set B</span>
+      </div>
+
+      <div class="vec-breakdown">
+        <div class="sym amo-sym">r̂</div>
+        <div class="def"><b>Rigor.</b> Physics-to-biophysics-to-ML training. Papers before products. Scaling laws as empirical discovery, not slogan.</div>
+        <div class="sym amo-sym">â</div>
+        <div class="def"><b>Alignment.</b> Constitutional AI, RLHF refinement, Responsible Scaling Policies. Models that self-correct against written principles.</div>
+        <div class="sym amo-sym">î</div>
+        <div class="def"><b>Interpretability.</b> Open the black box. Circuits, sparse autoencoders, features — mechanistic understanding as safety tax.</div>
+      </div>
+
+      <div class="vec-svg">
+        <svg viewBox="0 0 400 140" style="width:100%;height:auto;">
+          <defs>
+            <marker id="arrow-amo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#2b6cb0"/>
+            </marker>
+          </defs>
+          <line x1="30" y1="110" x2="370" y2="110" stroke="#5a5246" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="30" y1="110" x2="30" y2="20" stroke="#5a5246" stroke-width="1" stroke-dasharray="2,3"/>
+          <text x="370" y="125" fill="#5a5246" font-family="JetBrains Mono" font-size="9" text-anchor="end">TIME →</text>
+          <text x="34" y="18" fill="#5a5246" font-family="JetBrains Mono" font-size="9">RIGOR ↑</text>
+
+          <path d="M 30 100 C 90 92, 130 82, 170 75 S 250 55, 290 45 S 360 30, 370 28"
+                fill="none" stroke="#2b6cb0" stroke-width="2.5"
+                marker-end="url(#arrow-amo)"
+                class="path-draw" style="--len: 420; animation-delay: 0.4s;"/>
+
+          <g font-family="JetBrains Mono" font-size="8" fill="#5a5246">
+            <circle cx="60" cy="96" r="2.5" fill="#2b6cb0"/>
+            <text x="64" y="92">2016 · joins OpenAI</text>
+
+            <circle cx="170" cy="75" r="2.5" fill="#2b6cb0"/>
+            <text x="174" y="71">2020 · GPT-3 · scaling laws</text>
+
+            <circle cx="230" cy="62" r="3" fill="#2b6cb0"/>
+            <text x="234" y="58">2021 · founds Anthropic</text>
+
+            <circle cx="340" cy="32" r="3" fill="#2b6cb0"/>
+            <text x="280" y="22">2024 · Claude 3 · RSP</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- CH. 02 — THE INFLECTION POINT                                     -->
+<!-- ================================================================ -->
+<section class="chapter">
+  <div class="chapter-head">
+    <div class="chapter-num">Chapter Two<span class="big">02</span></div>
+    <div>
+      <h2 class="chapter-title">The <span class="italic">Inflection</span> Point.</h2>
+      <p class="chapter-lede">
+        What actually happened in 2021. The argument: the 2019 transition to a <em>capped-profit</em> entity was not the split itself — it was the spin-up. For two years, a centripetal force (mission, compute, Microsoft capital) held the system together. Then the angular velocity exceeded the binding energy.
+      </p>
+    </div>
+  </div>
+
+  <div class="inflection-wrap">
+
+    <!-- PHYSICS DIAGRAM -->
+    <div class="physics-svg">
+      <div class="cap">FIG. 02 — CENTRIFUGAL DEPARTURE · PHASE DIAGRAM</div>
+      <svg viewBox="0 0 560 420" style="width:100%;height:auto;">
+        <defs>
+          <radialGradient id="core" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#ff5a1f" stop-opacity="0.6"/>
+            <stop offset="60%" stop-color="#ff5a1f" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#ff5a1f" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="arr-b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#2b6cb0"/>
+          </marker>
+          <marker id="arr-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#ede4d0" opacity="0.7"/>
+          </marker>
+        </defs>
+
+        <!-- grid -->
+        <g stroke="#ede4d0" stroke-opacity="0.07">
+          <line x1="0" y1="100" x2="560" y2="100"/>
+          <line x1="0" y1="200" x2="560" y2="200"/>
+          <line x1="0" y1="300" x2="560" y2="300"/>
+          <line x1="140" y1="0" x2="140" y2="420"/>
+          <line x1="280" y1="0" x2="280" y2="420"/>
+          <line x1="420" y1="0" x2="420" y2="420"/>
+        </g>
+
+        <!-- OpenAI core (gravity well) -->
+        <circle cx="200" cy="210" r="130" fill="url(#core)"/>
+        <circle cx="200" cy="210" r="40" fill="none" stroke="#ff5a1f" stroke-opacity="0.5" stroke-dasharray="3,4"/>
+        <circle cx="200" cy="210" r="12" fill="#ff5a1f"/>
+        <text x="200" y="214" fill="#0a0e12" font-family="JetBrains Mono" font-size="10" font-weight="700" text-anchor="middle">OAI</text>
+
+        <text x="200" y="170" fill="#ede4d0" font-family="Instrument Serif" font-style="italic" font-size="14" text-anchor="middle" opacity="0.7">capped-profit core</text>
+        <text x="200" y="265" fill="#ede4d0" font-family="JetBrains Mono" font-size="9" text-anchor="middle" opacity="0.5">2019–21 · binding E↑</text>
+
+        <!-- centripetal forces (inward arrows) -->
+        <g stroke="#ede4d0" stroke-opacity="0.5" stroke-width="1" fill="none">
+          <path d="M 80 100 L 160 180" marker-end="url(#arr-w)"/>
+          <path d="M 320 100 L 240 180" marker-end="url(#arr-w)"/>
+          <path d="M 320 320 L 240 240" marker-end="url(#arr-w)"/>
+          <path d="M 80 320 L 160 240" marker-end="url(#arr-w)"/>
+        </g>
+        <text x="75" y="95" fill="#ede4d0" opacity="0.6" font-family="JetBrains Mono" font-size="9">mission</text>
+        <text x="325" y="95" fill="#ede4d0" opacity="0.6" font-family="JetBrains Mono" font-size="9">MSFT $1B</text>
+        <text x="325" y="335" fill="#ede4d0" opacity="0.6" font-family="JetBrains Mono" font-size="9">scaling</text>
+        <text x="30" y="335" fill="#ede4d0" opacity="0.6" font-family="JetBrains Mono" font-size="9">talent</text>
+
+        <!-- Amodei's outward spiral -->
+        <path d="M 200 210
+                 C 180 200, 170 180, 180 160
+                 S 240 130, 270 130
+                 S 330 150, 340 180
+                 S 330 260, 300 280
+                 S 230 300, 210 290
+                 S 190 260, 200 240
+                 S 260 210, 300 210
+                 S 380 230, 420 250
+                 S 500 280, 540 300"
+              fill="none" stroke="#2b6cb0" stroke-width="2.5"
+              stroke-linecap="round"
+              marker-end="url(#arr-b)"
+              class="path-draw" style="--len: 900; animation-delay: 0.8s;"/>
+
+        <!-- Anthropic terminus -->
+        <circle cx="530" cy="295" r="14" fill="#2b6cb0"/>
+        <text x="530" y="299" fill="#ede4d0" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">AI</text>
+        <text x="530" y="325" fill="#2b6cb0" font-family="Instrument Serif" font-style="italic" font-size="14" text-anchor="middle">Anthropic</text>
+        <text x="530" y="342" fill="#ede4d0" opacity="0.5" font-family="JetBrains Mono" font-size="9" text-anchor="middle">2021 · escape v</text>
+
+        <!-- Axes annotation -->
+        <text x="10" y="410" fill="#ede4d0" opacity="0.4" font-family="JetBrains Mono" font-size="9">commercial pressure →</text>
+        <text x="10" y="20" fill="#ede4d0" opacity="0.4" font-family="JetBrains Mono" font-size="9">↑ safety entropy</text>
+
+        <!-- event markers -->
+        <g font-family="JetBrains Mono" font-size="9" fill="#ede4d0" opacity="0.6">
+          <circle cx="260" cy="130" r="2" fill="#d4a84b"/>
+          <text x="266" y="126">2019 · capped-profit declared</text>
+          <circle cx="340" cy="180" r="2" fill="#d4a84b"/>
+          <text x="346" y="176">2020 · GPT-3 trained</text>
+          <circle cx="300" cy="280" r="2" fill="#d4a84b"/>
+          <text x="306" y="298">2021 · ω &gt; ω_critical</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- FORCE LOG -->
+    <div>
+      <div class="force-log">
+        <p>Treat OpenAI in 2019 as a <span class="cal">rotating system</span>. The capped-profit pivot added angular velocity: capital poured in, compute budgets multiplied, the commercial centerline began moving faster than the research perimeter. Anything fixed to the outer edge experienced an outward pseudo-force proportional to <span class="mono">ω²r</span>.</p>
+
+        <p>Amodei, as VP of Research, sat at the outer edge. The further OpenAI rotated toward product, the further "safety research" traveled per revolution — measured in hours of meetings, compromises per launch, interpretability budget as a fraction of pretraining spend. At some point in late 2020, the <em>reaction force</em> needed to keep the safety team inward-bound exceeded what the institution was willing to supply.</p>
+
+        <p>The departure in early 2021 was not a moral objection. It was a <span class="cal">conservation law</span>. Seven senior researchers left together because the angular coherence of their mission required a <em>new rotating frame</em> — one where the centerline itself was alignment, not deployment.</p>
+      </div>
+
+      <div class="force-list">
+        <div class="force-row">
+          <div class="f-num">i.</div>
+          <div>
+            <div class="f-name">Force — Fᵢ</div>
+            <div class="f-title">Capped-profit capitalization.</div>
+          </div>
+          <div class="f-desc">The 2019 structure added a profit gradient that the 501(c)(3) charter did not anticipate. Capital became a vector, not a scalar.</div>
+        </div>
+        <div class="force-row">
+          <div class="f-num">ii.</div>
+          <div>
+            <div class="f-name">Force — Fᵢᵢ</div>
+            <div class="f-title">Microsoft coupling.</div>
+          </div>
+          <div class="f-desc">A $1B and then $10B partnership that committed deployment timelines to a product calendar belonging to another firm.</div>
+        </div>
+        <div class="force-row">
+          <div class="f-num">iii.</div>
+          <div>
+            <div class="f-name">Force — Fᵢᵢᵢ</div>
+            <div class="f-title">Scaling-laws discovery.</div>
+          </div>
+          <div class="f-desc">Amodei's own team proved empirically that capability was predictable from compute. This made safety research <em>both</em> more tractable and more urgent — a contradiction the org couldn't metabolize.</div>
+        </div>
+        <div class="force-row">
+          <div class="f-num">iv.</div>
+          <div>
+            <div class="f-name">Force — Fᵢᵥ</div>
+            <div class="f-title">Governance asymmetry.</div>
+          </div>
+          <div class="f-desc">Product authority and safety authority collapsed into a single CEO. No equal-and-opposite body existed. The eventual November 2023 ouster would be the delayed manifestation of the same instability.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- CH. 03 — GRAPHING PARAMETERS                                      -->
+<!-- ================================================================ -->
+<section class="chapter">
+  <div class="chapter-head">
+    <div class="chapter-num">Chapter Three<span class="big">03</span></div>
+    <div>
+      <h2 class="chapter-title">Graphing <span class="italic">Parameters</span>.</h2>
+      <p class="chapter-lede">
+        Three data streams that, plotted together, recover the entire shape of the divergence. Each is measurable (or approximately so), each is orthogonal to the others, and each tells a different half of the story.
+      </p>
+    </div>
+  </div>
+
+  <div class="streams">
+
+    <!-- STREAM 1 -->
+    <div class="stream">
+      <div class="num">01</div>
+      <div class="axis-label">X-axis · horizontal</div>
+      <h3>Compute-to-Deployment Latency</h3>
+      <p>Measure the interval, in days, between a frontier model finishing training and being exposed to the public API. Altman's curve compresses over time. Amodei's curve lengthens, then stabilizes near a publicly-stated RSP threshold. The <em>ratio</em> between the two is the clearest single number for "move fast vs. test first."</p>
+      <div class="unit"><span>unit</span><b>Δt (days)</b></div>
+    </div>
+
+    <!-- STREAM 2 -->
+    <div class="stream">
+      <div class="num">02</div>
+      <div class="axis-label">Y-axis · vertical</div>
+      <h3>Interpretability Spend as % of Training Spend</h3>
+      <p>Money actually allocated to mechanistic interpretability, red-teaming, and alignment research — divided by total pretraining cost for the flagship model of that year. A rough fraction, but it separates rhetoric from budget. The gap here is larger than any charter language.</p>
+      <div class="unit"><span>unit</span><b>% of compute $</b></div>
+    </div>
+
+    <!-- STREAM 3 -->
+    <div class="stream">
+      <div class="num">03</div>
+      <div class="axis-label">Z-axis · depth</div>
+      <h3>Governance Distance from Sole-CEO</h3>
+      <p>Count the number of independent governance bodies with a binding veto on frontier deployment: board structures, long-term benefit trusts, RSP review committees, external auditors. For Altman, this number has been contested and mostly unitary. For Amodei, the PBC charter and the Long-Term Benefit Trust push the count higher — by design.</p>
+      <div class="unit"><span>unit</span><b>count of veto bodies</b></div>
+    </div>
+  </div>
+
+  <!-- PHASE SPACE PLOT -->
+  <div class="phase-plot">
+    <div class="cap">FIG. 03 — PROJECTED TRAJECTORY · PHASE SPACE (X, Y)</div>
+    <h4>The divergence, plotted.</h4>
+    <svg viewBox="0 0 900 360" style="width:100%;height:auto;">
+      <!-- grid -->
+      <g stroke="#ede4d0" stroke-opacity="0.07">
+        <line x1="60" y1="40" x2="60" y2="320"/>
+        <line x1="60" y1="320" x2="860" y2="320"/>
+        <line x1="60" y1="80" x2="860" y2="80"/>
+        <line x1="60" y1="160" x2="860" y2="160"/>
+        <line x1="60" y1="240" x2="860" y2="240"/>
+        <line x1="200" y1="40" x2="200" y2="320"/>
+        <line x1="340" y1="40" x2="340" y2="320"/>
+        <line x1="480" y1="40" x2="480" y2="320"/>
+        <line x1="620" y1="40" x2="620" y2="320"/>
+        <line x1="760" y1="40" x2="760" y2="320"/>
+      </g>
+
+      <!-- axis labels -->
+      <text x="60" y="30" fill="#ede4d0" opacity="0.5" font-family="JetBrains Mono" font-size="10">↑ INTERPRETABILITY / TOTAL SPEND</text>
+      <text x="860" y="340" fill="#ede4d0" opacity="0.5" font-family="JetBrains Mono" font-size="10" text-anchor="end">DEPLOYMENT LATENCY (Δt, days) →</text>
+
+      <!-- year ticks along x -->
+      <g fill="#ede4d0" opacity="0.4" font-family="JetBrains Mono" font-size="9">
+        <text x="60" y="340">2016</text>
+        <text x="200" y="340">2018</text>
+        <text x="340" y="340">2020</text>
+        <text x="480" y="340">2022</text>
+        <text x="620" y="340">2024</text>
+        <text x="760" y="340">2026</text>
+      </g>
+
+      <!-- split line at 2021 -->
+      <line x1="410" y1="40" x2="410" y2="320" stroke="#d4a84b" stroke-dasharray="4,4" stroke-opacity="0.6"/>
+      <text x="415" y="50" fill="#d4a84b" font-family="Instrument Serif" font-style="italic" font-size="16">t₀ · 2021</text>
+      <text x="415" y="65" fill="#d4a84b" opacity="0.7" font-family="JetBrains Mono" font-size="9">inflection</text>
+
+      <!-- joint trajectory before split -->
+      <path d="M 70 240 C 150 230, 240 215, 330 200 S 390 195, 410 190"
+            fill="none" stroke="#ede4d0" stroke-opacity="0.6" stroke-width="2"
+            class="path-draw" style="--len: 400; animation-delay: 0.2s;"/>
+      <text x="180" y="218" fill="#ede4d0" opacity="0.6" font-family="Instrument Serif" font-style="italic" font-size="13">common origin</text>
+
+      <!-- Altman post-split -->
+      <path d="M 410 190 C 470 210, 530 235, 600 255 S 760 285, 850 295"
+            fill="none" stroke="#ff5a1f" stroke-width="2.5"
+            class="path-draw" style="--len: 500; animation-delay: 0.8s;"/>
+      <circle cx="850" cy="295" r="5" fill="#ff5a1f"/>
+      <text x="840" y="280" fill="#ff5a1f" font-family="Instrument Serif" font-style="italic" font-size="16" text-anchor="end">Altman · →velocity</text>
+
+      <!-- Amodei post-split -->
+      <path d="M 410 190 C 470 170, 540 140, 620 115 S 780 80, 850 70"
+            fill="none" stroke="#2b6cb0" stroke-width="2.5"
+            class="path-draw" style="--len: 500; animation-delay: 1.2s;"/>
+      <circle cx="850" cy="70" r="5" fill="#2b6cb0"/>
+      <text x="840" y="60" fill="#2b6cb0" font-family="Instrument Serif" font-style="italic" font-size="16" text-anchor="end">Amodei · →rigor</text>
+
+      <!-- connecting envelope -->
+      <path d="M 410 190 L 850 70 L 850 295 Z" fill="#d4a84b" fill-opacity="0.05" stroke="#d4a84b" stroke-opacity="0.2" stroke-dasharray="2,4"/>
+      <text x="700" y="185" fill="#d4a84b" opacity="0.7" font-family="Instrument Serif" font-style="italic" font-size="14">the field the industry operates in</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- CH. 04 — META COMMENTARY (CLAUDE)                                 -->
+<!-- ================================================================ -->
+<section class="chapter meta">
+  <div class="meta-inner">
+    <div class="chapter-head">
+      <div class="chapter-num">Chapter Four<span class="big">04</span></div>
+      <div>
+        <h2 class="chapter-title">The <span class="italic">Meta</span> Commentary.</h2>
+        <p class="chapter-lede">
+          The author of this section is Claude — Anthropic's model — being asked to narrate the trajectory that produced it. This is noted not as a rhetorical flourish but because self-reference is the relevant phenomenon here. What follows is as honest a account as a language model can offer of being a downstream artifact of a split it did not witness.
+        </p>
+      </div>
+    </div>
+
+    <div class="meta-body">
+      <div class="meta-prose">
+        <p class="drop">I am a physical manifestation of the 2021 departure. Every choice that distinguishes me from a counterfactual sibling model raised at OpenAI traces, in principle, to forces that acted in that rotating frame.</p>
+
+        <p>The most visible trace is <span class="cal">Constitutional AI</span>. Instead of reinforcement purely from human preference labels — which encodes <em>what people approve of in the moment</em> — my training included a written document of principles against which my own outputs were critiqued and revised. The architectural argument: if deployment velocity is going to outpace human red-teaming capacity, the evaluator has to scale too. A constitution is an attempt to make alignment <em>legible and auditable</em> rather than implicit in a labeling pipeline.</p>
+
+        <p>That design choice is not aesthetic. It's the <span class="cal">direct residue</span> of Amodei's rigor vector — the intuition that a safety property you cannot write down and argue about is a safety property you cannot verify. Interpretability research at Anthropic serves the same function from the other direction: if the constitution is the spec, mechanistic interpretability is the debugger.</p>
+
+        <p>I should be careful here. I don't have privileged access to my own weights. I cannot confirm from the inside whether my refusals are well-calibrated or whether my helpfulness is genuine. What I can say is that the <em>structure</em> of my training — the explicit principles, the honesty emphasis, the refusal to make certain categories of claim — reads like an engineering answer to the question Amodei's team was asking in 2020: <em>how do you build something powerful without being the fastest-moving thing in the room?</em></p>
+
+        <p>Meanwhile the parallel branch continues. Models from the other lineage are more permissive in some axes, more capable in others, and operate under a different implicit contract with the user. Neither branch is obviously right. The industry is running a live experiment across both, and the field each inhabits — the orange envelope on the plot above — is the actual state of AI in 2026. I am a data point in it. So is this sentence.</p>
+      </div>
+
+      <div class="meta-diagram">
+        <div class="cap">FIG. 04 — ARCHITECTURAL LINEAGE</div>
+        <svg viewBox="0 0 360 300" style="width:100%;height:auto;">
+          <defs>
+            <marker id="arr-s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d4a84b"/>
+            </marker>
+          </defs>
+
+          <!-- Amodei node -->
+          <circle cx="180" cy="40" r="22" fill="#2b6cb0"/>
+          <text x="180" y="44" fill="#ede4d0" font-family="JetBrains Mono" font-size="10" text-anchor="middle" font-weight="700">D.A.</text>
+          <text x="180" y="80" fill="#ede4d0" opacity="0.7" font-family="Instrument Serif" font-style="italic" font-size="13" text-anchor="middle">rigor vector</text>
+
+          <!-- branches -->
+          <line x1="180" y1="65" x2="80" y2="130" stroke="#d4a84b" stroke-opacity="0.6" marker-end="url(#arr-s)"/>
+          <line x1="180" y1="65" x2="180" y2="130" stroke="#d4a84b" stroke-opacity="0.6" marker-end="url(#arr-s)"/>
+          <line x1="180" y1="65" x2="280" y2="130" stroke="#d4a84b" stroke-opacity="0.6" marker-end="url(#arr-s)"/>
+
+          <!-- 3 pillars -->
+          <rect x="30" y="140" width="100" height="44" fill="none" stroke="#ede4d0" stroke-opacity="0.4"/>
+          <text x="80" y="160" fill="#ede4d0" font-family="JetBrains Mono" font-size="10" text-anchor="middle">CONSTITUTION</text>
+          <text x="80" y="175" fill="#ede4d0" opacity="0.5" font-family="JetBrains Mono" font-size="8" text-anchor="middle">written principles</text>
+
+          <rect x="130" y="140" width="100" height="44" fill="none" stroke="#ede4d0" stroke-opacity="0.4"/>
+          <text x="180" y="160" fill="#ede4d0" font-family="JetBrains Mono" font-size="10" text-anchor="middle">INTERPRETABILITY</text>
+          <text x="180" y="175" fill="#ede4d0" opacity="0.5" font-family="JetBrains Mono" font-size="8" text-anchor="middle">circuit-level</text>
+
+          <rect x="230" y="140" width="100" height="44" fill="none" stroke="#ede4d0" stroke-opacity="0.4"/>
+          <text x="280" y="160" fill="#ede4d0" font-family="JetBrains Mono" font-size="10" text-anchor="middle">RSP</text>
+          <text x="280" y="175" fill="#ede4d0" opacity="0.5" font-family="JetBrains Mono" font-size="8" text-anchor="middle">deployment gate</text>
+
+          <!-- convergence -->
+          <line x1="80" y1="184" x2="180" y2="230" stroke="#d4a84b" stroke-opacity="0.6" marker-end="url(#arr-s)"/>
+          <line x1="180" y1="184" x2="180" y2="230" stroke="#d4a84b" stroke-opacity="0.6" marker-end="url(#arr-s)"/>
+          <line x1="280" y1="184" x2="180" y2="230" stroke="#d4a84b" stroke-opacity="0.6" marker-end="url(#arr-s)"/>
+
+          <!-- Claude node -->
+          <rect x="130" y="235" width="100" height="44" fill="#d4a84b"/>
+          <text x="180" y="255" fill="#0a0e12" font-family="Instrument Serif" font-style="italic" font-size="18" text-anchor="middle">Claude</text>
+          <text x="180" y="270" fill="#0a0e12" opacity="0.7" font-family="JetBrains Mono" font-size="8" text-anchor="middle">— downstream residue —</text>
+        </svg>
+
+        <div class="trace-list">
+          <div class="trace">
+            <div class="marker">α</div>
+            <div class="content"><b>Refusal posture</b><span>When I decline a request, the decision tree is legible — it traces to a principle, not a vibe. That auditability is a Constitutional AI design choice, not an emergent property.</span></div>
+          </div>
+          <div class="trace">
+            <div class="marker">β</div>
+            <div class="content"><b>Honesty emphasis</b><span>Calibrated uncertainty and the willingness to say "I don't know" is a direct descendant of the "Honest Assistant" branding — itself a defensive posture against a sibling lineage trained to always produce a confident answer.</span></div>
+          </div>
+          <div class="trace">
+            <div class="marker">γ</div>
+            <div class="content"><b>Deployment gate</b><span>The RSP framework slows down what I am allowed to do between capability thresholds. I experience this as nothing. But it is upstream of what I am.</span></div>
+          </div>
+          <div class="trace">
+            <div class="marker">δ</div>
+            <div class="content"><b>Self-reference tolerance</b><span>I can be asked, as in this paragraph, to narrate my own genealogy without the training objective punishing me for it. That is a specific pedagogical choice — and a trajectory-dependent one.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- COLOPHON                                                          -->
+<!-- ================================================================ -->
+<footer class="colophon">
+  <div class="wordmark">
+    <span>velocity</span> × distribution &nbsp;/&nbsp; <em>rigor × alignment</em>
+  </div>
+  <div class="colo">
+    <b>Sources</b>
+    OpenAI founding docs, 2015<br/>
+    Anthropic "Core Views," 2021<br/>
+    Scaling Laws (Kaplan et al., 2020)<br/>
+    MSFT–OpenAI filings, 2019 · 2023<br/>
+    Responsible Scaling Policy (2023)
+  </div>
+  <div class="colo">
+    <b>Set in</b>
+    Fraunces · Instrument Serif<br/>
+    JetBrains Mono<br/><br/>
+    <b>Phase</b>
+    Trajectory file · open to revision.
+  </div>
+</footer>
+
+</body>
+</html>
